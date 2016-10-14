@@ -80,6 +80,15 @@ EOL
 
                 $remove = true;
             }
+            else if (preg_match('/^https?:\/\//', $package, $matches))
+            {
+                $tmpname = bin2hex(random_bytes(15));
+
+                $headers = array_change_key_case(get_headers($package, 1), CASE_LOWER);
+                if ($headers['content-disposition'] && preg_match('/filename="(.*)"/i', $headers['content-disposition'], $f)) $tmpname = $f[1];
+
+                file_put_contents("/tmp/" . $tmpname, fopen($package, 'r'));
+            }
             else $directory = $package;
 
             if ($directory !== false)

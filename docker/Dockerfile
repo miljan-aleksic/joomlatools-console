@@ -70,8 +70,9 @@ COPY --from=composer:1.7.2 /usr/bin/composer /usr/bin/composer
 RUN apt-get update \
   && apt-get install -y \
   git \
+  sudo \
   unzip \
-  mysql-client
+  mysql-client 
 
 VOLUME /joomlatools
 WORKDIR /joomlatools
